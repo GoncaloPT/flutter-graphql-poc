@@ -1,0 +1,17 @@
+# build.yaml
+targets:
+  $default:
+    sources:
+      - graphql/**
+      - lib/**
+    builders:
+      graphql_codegen:
+        options:
+          addTypenameExcludedPaths:
+            - subscription
+            - subscription.onQuizChange
+          assetsPath: "graphql/**.graphql"
+          clients:
+            - graphql
+          outputDirectory: "../lib/graphql-generated"
+

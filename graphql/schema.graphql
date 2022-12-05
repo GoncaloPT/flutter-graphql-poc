@@ -1,0 +1,112 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+
+"""
+
+Category is logical grouping of questions that are expected to belong to a Quiz
+This is to showcase documentation on the schema...
+"""
+type Category {
+    categoryId: ID
+    finished: Boolean!
+    name: String!
+    questions: [Question]!
+    quiz: Quiz
+}
+
+"""
+
+One company or client or whatever.
+The goal is to aggregate Quiz.
+"""
+type Company {
+    companyID: ID!
+    name: String!
+}
+
+type Mutation {
+    addQuiz(quiz: CreateQuiz): Quiz
+}
+
+type Query {
+    "Categories"
+    categories: [Category]
+    categoryById(categoryId: ID!): Category
+    companies: [Company]
+    "Company"
+    companyById(companyID: ID!): Company
+    companyByName(name: ID!): Company
+    "Quiz"
+    quiz: [Quiz]
+    quizByCompanyID(companyId: ID!): Quiz
+    quizFindById(id: ID!): Quiz
+    quizTypeByQuizTypeId(quizTypeId: ID!): QuizType
+    "QuizType"
+    quizTypes: [QuizType]
+    quizTypesByName(name: String!): [QuizType]
+}
+
+"""
+
+Questions are the center of the quiz.
+They should belong to a category
+"""
+type Question {
+    answer: String
+    id: ID!
+    mandatory: Boolean!
+    text: String!
+}
+
+"""
+
+Quiz is the questionnaire, the entity that aggregates all
+the categories.
+"""
+type Quiz {
+    categories: [Category]
+    company: Company
+    description: String
+    quizId: ID!
+    quizType: QuizType
+    title: String!
+}
+
+"Quiz type - The type of the quiz, whatever that can be"
+type QuizType {
+    name: String!
+    quizTypeId: ID!
+}
+
+type Subscription {
+    onQuizChange: Quiz
+}
+
+input CreateCategory {
+    finished: Boolean!
+    name: String!
+    questions: [CreateQuestion]!
+}
+
+input CreateQuestion {
+    answer: String
+    mandatory: Boolean!
+    text: String!
+}
+
+input CreateQuiz {
+    categories: [CreateCategory]
+    companyID: ID!
+    description: String
+    quizTypeId: ID!
+    title: String!
+}
+
+input CreateQuizType {
+    name: String!
+}

@@ -1,0 +1,10 @@
+query company_only_id{
+    companies{
+        companyID
+    }
+}
+subscription a_minha {
+    onQuizChange{
+        title
+    }
+}
